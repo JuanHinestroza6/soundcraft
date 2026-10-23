@@ -216,8 +216,8 @@ fn open_pending_session(app: &mut SoundApp) {
     }
     let _ = app.run("transport.stop", json!({}));
     app.ui.status = match soundcraft_engine::io::open_session_bytes(&mut app.engine, &name, &bytes) {
-        Ok(missing) if missing.is_empty() => format!("Opened {name}"),
-        Ok(missing) => format!("Opened {name} ({} missing media)", missing.len()),
+        Ok(missing) if missing.is_empty() => trf("Opened {}", &[&name]),
+        Ok(missing) => trf("Opened {} ({} missing media)", &[&name, &missing.len()]),
         Err(e) => e.to_string(),
     };
 }

@@ -289,10 +289,10 @@ pub fn menu_bar(app: &mut SoundApp, ui: &mut egui::Ui) {
 fn instrument_menu(app: &mut SoundApp, ui: &mut egui::Ui) {
     match instrument_track(app.engine.session()) {
         Some(id) => {
-            ui.menu_button("Instrument", |ui| crate::mix_window::instrument_menu(app, ui, id));
+            ui.menu_button(tr("Instrument"), |ui| crate::mix_window::instrument_menu(app, ui, id));
         }
         None => {
-            ui.add_enabled(false, egui::Button::new("Instrument")).on_disabled_hover_text("Select an instrument track");
+            ui.add_enabled(false, egui::Button::new(tr("Instrument"))).on_disabled_hover_text(tr("Select an instrument track"));
         }
     }
 }
