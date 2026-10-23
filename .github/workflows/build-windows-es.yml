@@ -1,0 +1,28 @@
+# Builds soundcraft.exe and soundcraft-cli.exe for Windows x64 with the Spanish translation and
+# uploads them as a downloadable artifact (Actions > this run > Artifacts).
+name: Build Windows (español)
+
+on:
+  push:
+    branches: [traduccion-es]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Build
+        run: cargo build --release --locked -p soundcraft -p soundcraft-cli
+      - uses: actions/upload-artifact@v4
+        with:
+          name: soundcraft-windows-es
+          path: |
+            target/release/soundcraft.exe
+            target/release/soundcraft-cli.exe
